@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Button.h"
 #include "Label.h"
+#include "Target.h"
 
 class PlayScene : public Scene
 {
@@ -31,6 +32,7 @@ private:
 	Player* m_pPlayer;
 	bool m_playerFacingRight;
 
+	Target* m_pTarget;
 	// UI Items
 	Button* m_pBackButton;
 	Button* m_pNextButton;
