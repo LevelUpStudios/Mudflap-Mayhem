@@ -1,17 +1,17 @@
 ﻿  Engine.cpp
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(112,40): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(114,40): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(130,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(143,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(148,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(153,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(158,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(159,21): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(179,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(226,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(268,20): warning C4018: '<': signed/unsigned mismatch
-F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\GAME1007_SDLTemplate\Engine.cpp(273,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(112,40): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(114,40): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(130,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(143,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(148,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(153,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(158,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(159,21): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(179,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(226,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(268,20): warning C4018: '<': signed/unsigned mismatch
+F:\School\Mudflap-Mayhem\MM_FirstPlayable\GAME1007_SDLTemplate\Engine.cpp(273,20): warning C4018: '<': signed/unsigned mismatch
   Main.cpp
   Generating Code...
-  GAME1007_SDLTemplate.vcxproj -> F:\School\Fall-2020\1007-Productions\GAME1007_M4_FerrazzoMichael\Debug\GAME1007_SDLTemplate.exe
+  GAME1007_SDLTemplate.vcxproj -> F:\School\Mudflap-Mayhem\MM_FirstPlayable\Debug\GAME1007_SDLTemplate.exe
