@@ -1,33 +1,33 @@
-#include "EndScene.h"
+#include "LoseScene.h"
 #include <algorithm>
 #include "Game.h"
 #include "glm/gtx/string_cast.hpp"
 #include "EventManager.h"
 
-EndScene::EndScene()
+LoseScene::LoseScene()
 {
-	EndScene::start();
+	LoseScene::start();
 }
 
-EndScene::~EndScene()
+LoseScene::~LoseScene()
 = default;
 
-void EndScene::draw()
+void LoseScene::draw()
 {
 	drawDisplayList();
 }
 
-void EndScene::update()
+void LoseScene::update()
 {
 	updateDisplayList();
 }
 
-void EndScene::clean()
+void LoseScene::clean()
 {
 	removeAllChildren();
 }
 
-void EndScene::handleEvents()
+void LoseScene::handleEvents()
 {
 	EventManager::Instance().update();
 
@@ -46,10 +46,10 @@ void EndScene::handleEvents()
 	}
 }
 
-void EndScene::start()
+void LoseScene::start()
 {
 	const SDL_Color blue = { 0, 0, 255, 255 };
-	m_label = new Label("END SCENE", "Dock51", 80, blue, glm::vec2(400.0f, 40.0f));
+	m_label = new Label("LOSE SCENE", "Dock51", 80, blue, glm::vec2(400.0f, 40.0f));
 	m_label->setParent(this);
 	addChild(m_label);
 
@@ -57,20 +57,20 @@ void EndScene::start()
 	m_pRestartButton = new Button("../Assets/textures/restartButton.png", "restartButton", RESTART_BUTTON);
 	m_pRestartButton->getTransform()->position = glm::vec2(400.0f, 400.0f);
 	m_pRestartButton->addEventListener(CLICK, [&]()-> void
-	{
-		m_pRestartButton->setActive(false);
-		TheGame::Instance()->changeSceneState(PLAY_SCENE);
-	});
+		{
+			m_pRestartButton->setActive(false);
+			TheGame::Instance()->changeSceneState(PLAY_SCENE);
+		});
 
 	m_pRestartButton->addEventListener(MOUSE_OVER, [&]()->void
-	{
-		m_pRestartButton->setAlpha(128);
-	});
+		{
+			m_pRestartButton->setAlpha(128);
+		});
 
 	m_pRestartButton->addEventListener(MOUSE_OUT, [&]()->void
-	{
-		m_pRestartButton->setAlpha(255);
-	});
+		{
+			m_pRestartButton->setAlpha(255);
+		});
 
 	addChild(m_pRestartButton);
 }

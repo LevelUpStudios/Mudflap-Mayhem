@@ -64,7 +64,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 		
 	cout << "Initialization successful!" << endl;
 	Mix_PlayMusic(m_bgMusic, -1);
-	Mix_VolumeMusic(10);
+	Mix_VolumeMusic(5);
 	m_running = true;
 	return true;
 }
@@ -91,7 +91,7 @@ void Engine::HandleEvents()
 				m_pbullet.push_back (new Bullet({ m_player.GetDst()->x +44, m_player.GetDst()->y-20},m_player.GetPlayerAngle()));
 				m_pbullet.shrink_to_fit();
 				
-				Mix_PlayChannel(-1, m_blueLaser, 0); 
+				//Mix_PlayChannel(-1, m_blueLaser, 0); 
 			}
 		}
 	}
@@ -149,7 +149,7 @@ void Engine::Update()
 			{
 				m_ebullet.push_back(new EnemyBullet({ m_enemy[i]->GetDst()->x + 22, m_enemy[i]->GetDst()->y + 35 }));
 				m_enemy.shrink_to_fit();
-				Mix_PlayChannel(-1, m_redLaser, 0);
+				//Mix_PlayChannel(-1, m_redLaser, 0);
 			}
 		}
 	}

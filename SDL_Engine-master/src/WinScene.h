@@ -6,11 +6,11 @@
 #include "Label.h"
 #include "Button.h"
 
-class EndScene final : public Scene
+class WinScene final : public Scene
 {
 public:
-	EndScene();
-	~EndScene();
+	WinScene();
+	~WinScene();
 
 	// Inherited via Scene
 	virtual void draw() override;

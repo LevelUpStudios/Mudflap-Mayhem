@@ -8,6 +8,7 @@
 #include "Button.h"
 #include "Label.h"
 #include "Target.h"
+#include "vihicle.h"
 
 class PlayScene : public Scene
 {
@@ -37,6 +38,8 @@ private:
 	Button* m_pBackButton;
 	Button* m_pNextButton;
 	Label* m_pInstructionsLabel;
+
+	Vihicle* m_pVihicle;
 };
 
 #endif /* defined (__PLAY_SCENE__) */
