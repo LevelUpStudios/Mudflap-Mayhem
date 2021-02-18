@@ -18,7 +18,7 @@ public:
 
 	// setters
 	void setAnimationState(PlayerAnimationState new_state);
-
+	666666666666
 private:
 	void m_buildAnimations();
 

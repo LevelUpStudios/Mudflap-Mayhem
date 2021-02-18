@@ -3,8 +3,6 @@
 #define __PLAY_SCENE__
 
 #include "Scene.h"
-#include "Plane.h"
-#include "Player.h"
 #include "Button.h"
 #include "Label.h"
 #include "Target.h"
@@ -29,8 +27,6 @@ private:
 	
 	glm::vec2 m_mousePosition;
 
-	Plane* m_pPlaneSprite;
-	Player* m_pPlayer;
 	bool m_playerFacingRight;
 
 	Target* m_pTarget;

@@ -19,6 +19,8 @@ void WinScene::draw()
 
 void WinScene::update()
 {
+
+
 	updateDisplayList();
 }
 

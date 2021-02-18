@@ -5,6 +5,7 @@
 #include "glm/gtx/string_cast.hpp"
 #include "Renderer.h"
 #include "EventManager.h"
+#include "SoundManager.h"
 
 // IMGUI Includes
 #include "imgui.h"
@@ -153,15 +154,20 @@ void Game::changeSceneState(const SceneState new_state)
 		{
 		case START_SCENE:
 			m_currentScene = new StartScene();
+			SoundManager::Instance().stopMusic();
 			std::cout << "start scene activated" << std::endl;
 			break;
 		case PLAY_SCENE:
 			m_currentScene = new PlayScene();
+			SoundManager::Instance().stopMusic();
 			std::cout << "play scene activated" << std::endl;
 			break;
 		case WIN_SCENE:
 			m_currentScene = new WinScene();
 			std::cout << "end scene activated" << std::endl;
+			/*SoundManager::Instance().load("../Assets/audio/Neon.wav", "Neon", SOUND_MUSIC);
+			SoundManager::Instance().playMusic("Neon", 0, 100);
+			SoundManager::Instance().setMusicVolume(5);*/
 			break;
 		case LOSE_SCENE:
 			m_currentScene = new LoseScene();

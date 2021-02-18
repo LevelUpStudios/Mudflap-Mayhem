@@ -1,10 +1,11 @@
 #pragma once
-#ifndef __END_SCENE__
-#define __END_SCENE__
+#ifndef __WIN_SCENE__
+#define __WIN_SCENE__
 
 #include "Scene.h"
 #include "Label.h"
 #include "Button.h"
+#include "SoundManager.h"
 
 class WinScene final : public Scene
 {
@@ -25,4 +26,4 @@ private:
 	Button* m_pRestartButton;
 };
 
-#endif /* defined (__END_SCENE__) */
+#endif 

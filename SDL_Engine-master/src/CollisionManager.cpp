@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 #include "Util.h"
 #include <algorithm>
+#include "Vihicle.h"
 
 
 
@@ -174,7 +175,7 @@ int CollisionManager::minSquaredDistanceLineLine(glm::vec2 line1_start, glm::vec
 	return norm;
 }
 
-bool CollisionManager::lineAABBCheck(Ship* object1, GameObject* object2)
+/*bool CollisionManager::lineAABBCheck(Vihicle* object1, GameObject* object2)
 {
 	const auto lineStart = object1->getTransform()->position;
 	const auto lineEnd = object1->getTransform()->position + object1->getCurrentDirection() * 100.0f;
@@ -202,7 +203,7 @@ bool CollisionManager::lineAABBCheck(Ship* object1, GameObject* object2)
 	}
 
 	return false;
-}
+}*/
 
 int CollisionManager::circleAABBsquaredDistance(const glm::vec2 circle_centre, int circle_radius, const glm::vec2 box_start, const int box_width, const int box_height)
 {

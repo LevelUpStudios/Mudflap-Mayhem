@@ -25,8 +25,29 @@ void Vihicle::draw()
 
 void Vihicle::update()
 {
+	if (m_currentAnimationState == TRUCK_DRIVE_LEFT)
+	{
+		getTransform()->position -= glm::vec2(5.0f, 0.0f);
+	}
+	if (m_currentAnimationState == TRUCK_DRIVE_RIGHT)
+	{
+		getTransform()->position += glm::vec2(5.0f, 0.0f);
+	}
+	if (m_currentAnimationState == TRUCK_DRIVE_UP)
+	{
+		getTransform()->position += glm::vec2(0.0f, 5.0f);
+	}
+	if (m_currentAnimationState == TRUCK_DRIVE_DOWN)
+	{
+		getTransform()->position += glm::vec2(0.0f, -5.0f);
+	}
 }
 
 void Vihicle::clean()
 {
+}
+
+void Vihicle::setAnimationState(const TruckAnimationState new_state)
+{
+	m_currentAnimationState = new_state;
 }
