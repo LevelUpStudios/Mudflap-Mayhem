@@ -40,5 +40,8 @@
     <Image Include="img\enemy_ship.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="img\wall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

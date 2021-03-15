@@ -7,6 +7,8 @@
 #include "Label.h"
 #include "Target.h"
 #include "vihicle.h"
+#include <vector>
+using namespace std;
 
 class PlayScene : public Scene
 {
@@ -29,7 +31,7 @@ private:
 
 	bool m_playerFacingRight;
 
-	Target* m_pTarget;
+	vector<Target*> m_pTarget;
 	// UI Items
 	Button* m_pBackButton;
 	Button* m_pNextButton;

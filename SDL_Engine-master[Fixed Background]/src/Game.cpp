@@ -165,9 +165,9 @@ void Game::changeSceneState(const SceneState new_state)
 		case WIN_SCENE:
 			m_currentScene = new WinScene();
 			std::cout << "end scene activated" << std::endl;
-			/*SoundManager::Instance().load("../Assets/audio/Neon.wav", "Neon", SOUND_MUSIC);
+			SoundManager::Instance().load("../Assets/audio/Neon.wav", "Neon", SOUND_MUSIC);
 			SoundManager::Instance().playMusic("Neon", 0, 100);
-			SoundManager::Instance().setMusicVolume(20);*/
+			SoundManager::Instance().setMusicVolume(20);
 			break;
 		case LOSE_SCENE:
 			m_currentScene = new LoseScene();

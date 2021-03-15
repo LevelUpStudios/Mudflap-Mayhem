@@ -68,11 +68,6 @@ void PlayScene::handleEvents()
 				m_pVihicle->setAnimationState(TRUCK_IDLE_RIGHT);
 			}
 		}
-
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
-		{
-			TheGame::Instance()->quit();
-		}
 	}
 
 	// handle player movement if no Game Controllers found
@@ -100,10 +95,41 @@ void PlayScene::handleEvents()
 		}
 	}
 
-	for (int i = 0; i < 3; i++) // for health system down the line.
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
-		if (CollisionManager::AABBCheck(m_pVihicle, m_pTarget))
-			TheGame::Instance()->changeSceneState(LOSE_SCENE);
+		TheGame::Instance()->quit();
+	}
+
+	//Force into the Win scene.
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_1))
+	{
+		TheGame::Instance()->changeSceneState(WIN_SCENE);
+	}
+
+	//Health system
+	for (unsigned i=0;i<m_pTarget.size();i++)
+	{
+		int health = 3;
+		if (CollisionManager::AABBCheck(m_pVihicle, m_pTarget[i])||health>0)
+		{
+			delete m_pTarget[i];
+			m_pTarget[i] = nullptr;
+			m_pTarget.erase(m_pTarget.begin() + i);
+			m_pTarget.shrink_to_fit();
+			health--;
+			break;
+			//Later add in animations for both the health bar and the truck when hit.
+		}
+		if (health <= 0)
+		{
+			delete m_pTarget[i];
+			m_pTarget[i] = nullptr;
+			m_pTarget.erase(m_pTarget.begin() + i);
+			m_pTarget.shrink_to_fit();
+			removeChild(m_pVihicle);
+			
+			Game::Instance()->changeSceneState(LOSE_SCENE);
+		}
 	}
 	
 }
@@ -117,10 +143,23 @@ void PlayScene::start()
 	m_pVihicle->getTransform()->position = glm::vec2(50.0f, 100.0f);
 	m_pVihicle->setEnabled(true);
 	addChild(m_pVihicle);
-
-	m_pTarget = new Target();
-	m_pTarget->getTransform()->position = glm::vec2(500.0f, 300.0f);
-	addChild(m_pTarget);
+	
+	bool spawn = true;
+	float x= 1+(rand()%800);
+	float y = 1 + (rand() % 600);
+	//using the target object as a placeholder for enemies 
+	//Change to enemies later.
+	if (SDL_GetTicks() % 60 * 5 == 0)
+	{
+		spawn = true;
+		for (unsigned i = 0; i < m_pTarget.size(); i++)
+		{
+			m_pTarget.push_back(new Target());
+			m_pTarget[i]->getTransform()->position = glm::vec2(x,y);
+			m_pTarget.shrink_to_fit();
+			addChild(m_pTarget[i]);
+		}
+	}
 }
 
 void PlayScene::GUI_Function() const

@@ -22,7 +22,6 @@ protected:
 	 
 
 public:
-	int m_playerAngle = 0;
 	void SetRekts(const SDL_Rect s, const SDL_Rect d) // Non-Default constructor
 	{
 		m_src = s;
@@ -30,6 +29,18 @@ public:
 	}
 	SDL_Rect* GetSrc() { return &m_src; }
 	SDL_Rect* GetDst() { return &m_dst; }
+
+};
+
+class Player : public Sprite
+{
+public:
+	Player()
+	{
+		m_playerAngle = 0;
+	}
+	~Player()
+		= default;
 	void SetPlayerAngle(int a)
 	{
 		m_playerAngle = a;
@@ -38,6 +49,27 @@ public:
 	{
 		return m_playerAngle;
 	}
+private:
+	int m_playerAngle;
+};
+
+class Health :public Sprite
+{
+public:
+	Health()
+	{
+		m_health = 3;
+	}
+	void decrease()
+	{
+		m_health--;
+	}
+	int getHealth()
+	{
+		return m_health;
+	}
+private:
+	int m_health;
 };
 
 class Bullet : public Sprite
@@ -182,14 +214,19 @@ private: // private properties.
 	SDL_Texture* m_pLaserTexture; // Player laser texture
 	SDL_Texture* m_eLaserTexture; // Enemy laser texture
 	SDL_Texture* m_pBGTexture;  //  Backgrouind texture
+	SDL_Texture* m_pHealthTexture; // Health bar/box texture
 	
-	Sprite m_player, m_bg1, m_bg2;
+	Sprite m_bg1, m_bg2;
+	Player m_player;
+	Health m_health;
+	
 	int m_speed = 7; // In-class initialization. Not  the norm.
-	
+
 	vector<Enemy*> m_enemy;
 	vector<Bullet*> m_pbullet;
 	vector<EnemyBullet*> m_ebullet;
 	
+
 	// Adding the sound variables
 	Mix_Chunk* m_blueLaser;
 	Mix_Chunk* m_redLaser;

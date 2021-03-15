@@ -28,6 +28,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 					m_pTexture = IMG_LoadTexture(m_pRenderer, "img/semi_truck.png");
 					m_pLaserTexture = IMG_LoadTexture(m_pRenderer, "img/blue_laser.png");
 					m_eLaserTexture = IMG_LoadTexture(m_pRenderer, "img/red_laser.png");
+					m_pHealthTexture = IMG_LoadTexture(m_pRenderer, "img/wall.png");
 				}
 				else return false; // Image init failed.
 				if (Mix_Init(MIX_INIT_MP3) != 0)
@@ -57,7 +58,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	
 	// Player initialization
 	m_player.SetRekts (  {0,0,162,130}, {431,638,60,100} ); // Player First {} is source rect, second {} destination rect
-	
+
 	// Backgrounds textures initialization
 	m_bg1.SetRekts ( { 0,0,WIDTH,HEIGHT}, { 0,0,WIDTH,HEIGHT });
 
@@ -203,6 +204,7 @@ void Engine::Update()
 		{
 			if (SDL_HasIntersection(m_pbullet[c]->GetDst(), m_ebullet[i]->GetDst()))
 			{
+
 				cout << "Collision" << endl;
 				delete m_ebullet[i]; // Flag for re-allocation 'for sale'
 				m_ebullet[i] = nullptr; // Wrangle your dangle
@@ -218,13 +220,14 @@ void Engine::Update()
 			}
 		}
 	}
+
+
 	// Check for colision between enemy lasers and player
 	for (unsigned i = 0; i < m_ebullet.size(); i++)
 	{
 		if (SDL_HasIntersection(m_player.GetDst(), m_ebullet[i]->GetDst()))
-		{	
-			cout << "YOU HAVE DIED" << endl;
-			Mix_PlayChannel(-1, m_explode, 0);
+		{
+			m_health.decrease();
 			delete m_ebullet[i]; // Flag for re-allocation 'for sale'
 			m_ebullet[i] = nullptr; // Wrangle your dangle
 			m_ebullet.erase(m_ebullet.begin() + i);
@@ -237,14 +240,20 @@ void Engine::Update()
 	{
 		if (SDL_HasIntersection(m_player.GetDst(), m_enemy[i]->GetDst()))
 		{
-			cout << "YOU HAVE DIED" << endl;
-			Mix_PlayChannel(-1, m_explode, 0);
+			m_health.decrease();
 			delete m_enemy[i]; // Flag for re-allocation 'for sale'
 			m_enemy[i] = nullptr; // Wrangle your dangle
 			m_enemy.erase(m_enemy.begin() + i);
 			m_enemy.shrink_to_fit();
 			break;
 		}
+	}
+
+	if (m_health.getHealth() <= 0)
+	{
+		//Mix_PlayChannel(-1, m_explode, 0);
+		cout << "YOU DIED";
+		Clean();
 	}
 	// Putting memory on the market as bullets and enemy ships go off screen
 	// Player bullets going off screen
@@ -348,7 +357,6 @@ int Engine::Run()
 
 void Engine::Clean()
 {
-	cout << "Cleaning engine..." << endl;
 	for (unsigned i = 0; i < m_pbullet.size(); i++) // Cleanup leftover player bullets(blue laser)
 	{
 		delete m_pbullet[i]; // Flag for re-allocation 'for sale'
@@ -377,14 +385,13 @@ void Engine::Clean()
 	SDL_DestroyTexture(m_pLaserTexture);
 	SDL_DestroyTexture(m_pBGTexture);
 	
-	Mix_FreeChunk(m_redLaser);
-	Mix_FreeChunk(m_blueLaser);
-	Mix_FreeMusic(m_bgMusic);
+	//Mix_FreeChunk(m_redLaser);
+	//Mix_FreeChunk(m_blueLaser);
+	//Mix_FreeMusic(m_bgMusic);
 
 	Mix_CloseAudio();
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
-
 
