@@ -1,9 +1,9 @@
 /*******************************************************************************
-* File Name   :		 
-* Description :	
-* Author      :	
+* File Name   :	Mudflap Mayhem [ALPHA]	 
+* Description :	ALPHA for Mudflap Mayhem GAME PRODUCTION W2021
+* Author      :	LevelUP Studios
 * Created     :	
-* Modified    :	
+* Modified    :	17/03/2021
 *******************************************************************************/
 
 // SDL includes pasted for convenience. Move/copy to relevant files.
