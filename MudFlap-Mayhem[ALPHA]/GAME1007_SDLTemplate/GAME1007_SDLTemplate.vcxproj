@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\blue_laser.png" />
+    <Image Include="img\edited_sprite_sheet.png" />
     <Image Include="img\enemy_ship.png" />
     <Image Include="img\player_ship.PNG" />
     <Image Include="img\red_laser.png" />

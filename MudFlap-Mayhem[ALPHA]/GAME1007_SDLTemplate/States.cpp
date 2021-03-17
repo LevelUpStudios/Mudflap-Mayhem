@@ -18,9 +18,11 @@ void TitleState::Enter()
 {
 	m_pBGTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/mudflap_title.png ");
 	m_bg1.SetRekts({ 0,0,WIDTH,HEIGHT }, { 0,0,WIDTH,HEIGHT });
-	m_bg2.SetRekts({ 0,0,WIDTH,HEIGHT }, { 0,-768,WIDTH,HEIGHT });
 	m_pPlayerTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/semi_truck.png");
-	m_player.SetRekts({ 0,0,162,130 }, { 431,300,162,130 }); // Player First {} is source rect, second {} destination rect
+	//m_player.SetRekts({ 0,0,162,130 }, { 431,300,162,130 }); // Player First {} is source rect, second {} destination rect
+	
+	
+
 	cout << "Entering TitleState..." << endl;
 }
 
@@ -36,7 +38,6 @@ void TitleState::Render()
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 255, 0, 255, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_pBGTexture, m_bg1.GetSrc(), m_bg1.GetDst());
-
 	State::Render();
 }
 
@@ -60,9 +61,20 @@ void GameState::Enter() // Used for initialization
 	m_eLaserTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/red_laser.png");
 	m_pPlayerTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/semi_truck.png");
 	m_pEnemyTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/enemy_ship.png");
+
 	m_player.SetRekts({ 0,0,162,130 }, { 431,600,60,100 }); // Player First {} is source rect, second {} destination rect
 
 	m_bg1.SetRekts({ 0,0,WIDTH,HEIGHT }, { 0,0,WIDTH,HEIGHT });
+
+	m_wallTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/tileset.png");
+	m_wall1.SetRekts({ 80,0,16,16 }, { 64,0,896,64 });
+	m_wall2.SetRekts({ 80,0,16,16 }, { 64,704,896,64 });
+	m_wall3.SetRekts({ 96,0,16,16 }, { 0,64,64,HEIGHT - 64 });
+	m_wall4.SetRekts({ 96,0,16,16 }, { WIDTH - 64, 64 ,64,HEIGHT - 64 });
+	m_corner1.SetRekts({ 64,0,16,16 }, { 0,0,64,64 });
+	m_corner2.SetRekts({ 64,0,16,16 }, { 960,0,64,64 });
+	m_corner3.SetRekts({ 64,0,16,16 }, { 0,704,64,64 });
+	m_corner4.SetRekts({ 64,0,16,16 }, { 960,704,64,64 });
 
 	// Load sounds.
 	m_blueLaser = Mix_LoadWAV("aud/blue_laser_sound.wav");
@@ -197,6 +209,7 @@ void GameState::Update()
 			m_pEnemyBullet.erase(m_pEnemyBullet.begin() + i);
 			m_pEnemyBullet.shrink_to_fit();
 			m_player.SetPlayerHealth(m_player.GetPlayerHealth() - 1);
+			cout << m_player.GetPlayerHealth() <<endl;
 			if (m_player.GetPlayerHealth() == 0)
 			STMA::PushState(new LoseState()); // Add new LoseState
 			break;
@@ -213,6 +226,8 @@ void GameState::Update()
 			m_enemy[i] = nullptr; // Wrangle your dangle
 			m_enemy.erase(m_enemy.begin() + i);
 			m_enemy.shrink_to_fit();
+			m_player.SetPlayerHealth(m_player.GetPlayerHealth() - 1);
+			//if(m_player.GetPlayerHealth() == 0)
 			STMA::PushState(new LoseState()); // Add new LoseState
 			break;
 		}
@@ -268,7 +283,16 @@ void GameState::Render()
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_pBGTexture, m_bg1.GetSrc(), m_bg1.GetDst());
-	
+	// Render Border Walls -- There is a better way to do this, this was just my band-aid solution
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_wallTexture, m_wall1.GetSrc(), m_wall1.GetDst());
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_wallTexture, m_wall2.GetSrc(), m_wall2.GetDst());
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_wallTexture, m_wall3.GetSrc(), m_wall3.GetDst());
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_wallTexture, m_wall4.GetSrc(), m_wall4.GetDst());
+	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_wallTexture, m_corner1.GetSrc(), m_corner1.GetDst(), NULL, NULL, SDL_FLIP_HORIZONTAL);
+	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_wallTexture, m_corner2.GetSrc(), m_corner2.GetDst(), NULL, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_wallTexture, m_corner3.GetSrc(), m_corner3.GetDst(), 180, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_wallTexture, m_corner4.GetSrc(), m_corner4.GetDst(), NULL, NULL, SDL_FLIP_VERTICAL);
+
 	// Render Player Ship
 	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_pPlayerTexture, m_player.GetSrc(), m_player.GetDst(),m_player.GetPlayerAngle(),0,SDL_FLIP_NONE);
 	for (unsigned i = 0; i < m_pBullet.size(); i++)

@@ -34,6 +34,9 @@ public:
 
 class Player : public Sprite
 {
+private:
+	int m_playerAngle;
+	int m_playerHealth = 3;
 public:
 	Player()
 	{
@@ -57,29 +60,31 @@ public:
 	{
 		return m_playerHealth;
 	}
-private:
-	int m_playerAngle;
-	int m_playerHealth;
 };
 
-class Health :public Sprite
+class Wall : public Sprite
 {
-public:
-	Health()
-	{
-		m_health = 3;
-	}
-	void decrease()
-	{
-		m_health--;
-	}
-	int getHealth()
-	{
-		return m_health;
-	}
-private:
-	int m_health;
+
+	
 };
+//class Health :public Sprite
+//{
+//public:
+//	Health()
+//	{
+//		m_health = 3;
+//	}
+//	void decrease()
+//	{
+//		m_health--;
+//	}
+//	int getHealth()
+//	{
+//		return m_health;
+//	}
+//private:
+//	int m_health;
+//};
 
 class Bullet : public Sprite
 {
@@ -88,7 +93,7 @@ private:
 	int m_bulletAngle;
 public:
 	
-	Bullet(SDL_Point spawnLoc= {486, 560}, int angle = 0) // Non default constructor
+	Bullet(SDL_Point spawnLoc= {486, 560},int angle = 0) // Non default constructor
 	{
 		cout << "Constructing Player Bullet" << endl;
 		this->m_rect.x = spawnLoc.x;
@@ -120,9 +125,9 @@ public:
 			m_rect.y -= 20;
 		if (m_bulletAngle == 90) // Bullets going Right
 			m_rect.x += 20;
-		if (m_bulletAngle == 180) // Bullets
+		if (m_bulletAngle == 180) // Bullets going
 			m_rect.y += 20;
-		if (m_bulletAngle == 270)
+		if (m_bulletAngle == 270) // Bullets going
 			m_rect.x -= 20;
 	}
 	SDL_Rect* GetDst() { return &m_rect; }

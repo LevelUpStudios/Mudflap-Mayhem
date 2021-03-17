@@ -55,5 +55,8 @@
     <Image Include="img\wall.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="img\edited_sprite_sheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
