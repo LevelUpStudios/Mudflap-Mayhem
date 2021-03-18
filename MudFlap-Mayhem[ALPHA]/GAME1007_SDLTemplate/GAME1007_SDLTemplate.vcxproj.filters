@@ -46,16 +46,16 @@
     <Image Include="img\red_laser.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="img\player_ship.PNG">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="img\enemy_ship.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="img\wall.png">
+    <Image Include="img\semi_truck.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="img\edited_sprite_sheet.png">
+    <Image Include="img\HealthBarSheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\tileset.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

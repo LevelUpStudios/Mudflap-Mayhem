@@ -36,7 +36,7 @@ class Player : public Sprite
 {
 private:
 	int m_playerAngle;
-	int m_playerHealth = 3;
+	int m_playerHealth = 4;
 public:
 	Player()
 	{
@@ -67,24 +67,6 @@ class Wall : public Sprite
 
 	
 };
-//class Health :public Sprite
-//{
-//public:
-//	Health()
-//	{
-//		m_health = 3;
-//	}
-//	void decrease()
-//	{
-//		m_health--;
-//	}
-//	int getHealth()
-//	{
-//		return m_health;
-//	}
-//private:
-//	int m_health;
-//};
 
 class Bullet : public Sprite
 {

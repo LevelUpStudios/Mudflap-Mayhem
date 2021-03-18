@@ -76,6 +76,9 @@ void GameState::Enter() // Used for initialization
 	m_corner3.SetRekts({ 64,0,16,16 }, { 0,704,64,64 });
 	m_corner4.SetRekts({ 64,0,16,16 }, { 960,704,64,64 });
 
+	m_healthBarTexture = IMG_LoadTexture(Engine::Instance().GetRenderer(), "img/HealthBarSheet.png");
+	
+
 	// Load sounds.
 	m_blueLaser = Mix_LoadWAV("aud/blue_laser_sound.wav");
 	m_redLaser = Mix_LoadWAV("aud/red_laser_sound.wav");
@@ -87,8 +90,8 @@ void GameState::Enter() // Used for initialization
 	m_bgMusic = Mix_LoadMUS("Aud/moonlight_sonata.mp3");
 
 	//Play BG music
-	Mix_PlayMusic(m_bgMusic, -1);
-	Mix_VolumeMusic(20);
+	//Mix_PlayMusic(m_bgMusic, -1);
+	//Mix_VolumeMusic(20);
 	
 }
 
@@ -123,7 +126,7 @@ void GameState::Update()
 		Engine::Instance().m_bCanShoot = false;
 		m_pBullet.push_back (new Bullet({ m_player.GetDst()->x +44, m_player.GetDst()->y-20},m_player.GetPlayerAngle()));
 		m_pBullet.shrink_to_fit();
-		Mix_PlayChannel(-1, m_blueLaser, 0);
+		//Mix_PlayChannel(-1, m_blueLaser, 0);
 	}
 
 	// Spawning Enemies
@@ -140,7 +143,7 @@ void GameState::Update()
 			{
 				m_pEnemyBullet.push_back(new EnemyBullet({ m_enemy[i]->GetDst()->x + 22, m_enemy[i]->GetDst()->y + 35 }));
 				m_enemy.shrink_to_fit();
-				Mix_PlayChannel(-1, m_redLaser, 0);
+				//Mix_PlayChannel(-1, m_redLaser, 0);
 			}
 		}
 	}
@@ -161,7 +164,7 @@ void GameState::Update()
 			if (SDL_HasIntersection(m_pBullet[c]->GetDst(), m_enemy[i]->GetDst()))
 			{
 				cout << "Collision" << endl;
-				Mix_PlayChannel(-1, m_explode, 0);
+				//Mix_PlayChannel(-1, m_explode, 0);
 				// Destroys enemy upon collision
 				delete m_enemy[i]; // Flag for re-allocation 'for sale'
 				m_enemy[i] = nullptr; // Wrangle your dangle
@@ -202,16 +205,12 @@ void GameState::Update()
 	{
 		if (SDL_HasIntersection(m_player.GetDst(), m_pEnemyBullet[i]->GetDst()))
 		{
-			cout << "YOU HAVE DIED" << endl;
-			Mix_PlayChannel(-1, m_explode, 0);
+			//Mix_PlayChannel(-1, m_explode, 0);
 			delete m_pEnemyBullet[i]; // Flag for re-allocation 'for sale'
 			m_pEnemyBullet[i] = nullptr; // Wrangle your dangle
 			m_pEnemyBullet.erase(m_pEnemyBullet.begin() + i);
 			m_pEnemyBullet.shrink_to_fit();
-			m_player.SetPlayerHealth(m_player.GetPlayerHealth() - 1);
-			cout << m_player.GetPlayerHealth() <<endl;
-			if (m_player.GetPlayerHealth() == 0)
-			STMA::PushState(new LoseState()); // Add new LoseState
+			HealthCheck();
 			break;
 		}
 	}
@@ -220,15 +219,12 @@ void GameState::Update()
 	{
 		if (SDL_HasIntersection(m_player.GetDst(), m_enemy[i]->GetDst()))
 		{
-			cout << "YOU HAVE DIED" << endl;
-			Mix_PlayChannel(-1, m_explode, 0);
+			//Mix_PlayChannel(-1, m_explode, 0);
 			delete m_enemy[i]; // Flag for re-allocation 'for sale'
 			m_enemy[i] = nullptr; // Wrangle your dangle
 			m_enemy.erase(m_enemy.begin() + i);
 			m_enemy.shrink_to_fit();
-			m_player.SetPlayerHealth(m_player.GetPlayerHealth() - 1);
-			//if(m_player.GetPlayerHealth() == 0)
-			STMA::PushState(new LoseState()); // Add new LoseState
+			HealthCheck();
 			break;
 		}
 	}
@@ -275,11 +271,13 @@ void GameState::Update()
 		STMA::ChangeState(new TitleState()); // Change to new TitleState
 	else if(Engine::Instance().KeyDown(SDL_SCANCODE_P))
 		STMA::PushState(new PauseState()); // Add new PauseState
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_M))
+		STMA::ChangeState(new WinState()); // Change to new WinState (Using to force win state for now)
 }
 
 void GameState::Render()
 {
-	cout << "Rendering GameState..." << endl;
+	//cout << "Rendering GameState..." << endl;
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_pBGTexture, m_bg1.GetSrc(), m_bg1.GetDst());
@@ -293,6 +291,11 @@ void GameState::Render()
 	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_wallTexture, m_corner3.GetSrc(), m_corner3.GetDst(), 180, NULL, SDL_FLIP_NONE);
 	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_wallTexture, m_corner4.GetSrc(), m_corner4.GetDst(), NULL, NULL, SDL_FLIP_VERTICAL);
 
+	//Render Health bar
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_healthFull.GetSrc(), m_healthFull.GetSrc());
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_health3.GetSrc(), m_health3.GetSrc());
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_health4.GetSrc(), m_health4.GetSrc());
+	SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_healthDead.GetSrc(), m_healthDead.GetSrc());
 	// Render Player Ship
 	SDL_RenderCopyEx(Engine::Instance().GetRenderer(), m_pPlayerTexture, m_player.GetSrc(), m_player.GetDst(),m_player.GetPlayerAngle(),0,SDL_FLIP_NONE);
 	for (unsigned i = 0; i < m_pBullet.size(); i++)
@@ -320,6 +323,30 @@ void GameState::Resume()
 {
 	cout << "Resuming GameState..." << endl;
 	Mix_ResumeMusic();
+}
+
+//Checking health status and displaying the proper health bar sprite.
+void GameState::HealthCheck()
+{
+	m_player.SetPlayerHealth(m_player.GetPlayerHealth() - 1);
+	cout << m_player.GetPlayerHealth() << endl;
+	if (m_player.GetPlayerHealth() == 3)
+	{
+		SDL_DestroyTexture(m_healthBarTexture);
+		SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_health2.GetSrc(), m_health2.GetSrc()); //Set its rects 
+	}
+	else if (m_player.GetPlayerHealth() == 2)
+	{
+		SDL_DestroyTexture(m_healthBarTexture);
+		SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_health3.GetSrc(), m_health3.GetSrc()); //Set its rects 
+	}
+	else if (m_player.GetPlayerHealth() == 1)
+	{
+		SDL_DestroyTexture(m_healthBarTexture);
+		SDL_RenderCopy(Engine::Instance().GetRenderer(), m_healthBarTexture, m_health4.GetSrc(), m_health4.GetSrc()); //Set its rects 
+	}
+	else if (m_player.GetPlayerHealth() == 0)
+		STMA::PushState(new LoseState()); // Add new LoseState
 }
 // End GameState
 
@@ -391,4 +418,29 @@ void LoseState::Render()
 void LoseState::Exit()
 {
 	
+}
+
+WinState::WinState() {}
+
+void WinState::Enter()
+{
+	
+}
+
+void WinState::Update()
+{
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_X))
+		STMA::ChangeState(new TitleState()); // Change to new TitleState
+}
+
+void WinState::Render()
+{
+	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
+	SDL_Rect rect = { 0,0,1024,768 };
+	SDL_RenderFillRect(Engine::Instance().GetRenderer(), &rect);
+	State::Render();
+}
+
+void WinState::Exit()
+{
 }
